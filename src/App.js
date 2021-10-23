@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TasksList from "./components/TasksList";
 import Timer from "./components/Timer";
 
 class App extends Component {
@@ -7,6 +8,7 @@ class App extends Component {
       <div>
         <h1>Timer-app</h1>
         <Timer />
+        <TasksList />
       </div>
     );
   }

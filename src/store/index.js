@@ -1,9 +1,11 @@
 import { combineReducers, createStore } from "redux";
-import timerReducer from "./timerReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
+import timerReducer from "./timerReducer";
+import tasksReducer from "./tasksReducer";
 
 const store = createStore(
-  combineReducers({ timerReducer }, composeWithDevTools())
+  combineReducers({ timerReducer, tasksReducer }),
+  composeWithDevTools()
 );
 
 export default store;

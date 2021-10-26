@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import { connect } from "react-redux";
 import uniqid from "uniqid";
+import { TimerWrapper } from "./styledComponents";
+import { InputWrapper } from "./styledComponents";
 
 class Timer extends Component {
   constructor(props) {
@@ -61,14 +62,6 @@ class Timer extends Component {
   };
 
   render() {
-    const TimerWrapper = styled.div`
-      display: flex;
-      justify-content: space-between;
-      width: 80px;
-      font-size: 2rem;
-      margin-left: 50px;
-    `;
-
     let hours = this.getZero(
       Math.floor(this.state.timer / (1000 * 60 * 60)) % 60
     );
@@ -82,6 +75,8 @@ class Timer extends Component {
 
     const task = {
       name: this.state.inputValue,
+      dateStart: timerReducer.dateStart,
+      dateFinish: Date.now(),
       leadTime: Date.now() - timerReducer.dateStart,
       id: uniqid(),
     };
@@ -94,36 +89,38 @@ class Timer extends Component {
           <div className="minutes">:{minutes}</div>
           <div className="secons">:{seconds}</div>
         </TimerWrapper>
-        <div>
-          <label htmlFor="task-name">Taks name:&nbsp;</label>
-          <input
-            type="text"
-            name="task-name"
-            autoComplete="off"
-            value={this.state.inputValue}
-            onChange={(e) => this.handleInput(e)}
-          />
-        </div>
-        <button
-          onClick={() => {
-            if (this.state.inputValue && this.state.buttonState === "Start") {
-              setStartTime(this.state.inputValue);
-              this.setButtonState(true);
-              this.runTimer();
-            }
-            if (
-              this.state.buttonState === "Stop" &&
-              this.state.inputValue !== ""
-            ) {
-              this.setButtonState(false);
-              this.runTimer();
-              this.clearState();
-              addNewTask(task);
-            }
-          }}
-        >
-          {this.state.buttonState}
-        </button>
+        <InputWrapper>
+          <div>
+            <label htmlFor="task-name">Taks name:&nbsp;</label>
+            <input
+              type="text"
+              name="task-name"
+              autoComplete="off"
+              value={this.state.inputValue}
+              onChange={(e) => this.handleInput(e)}
+            />
+          </div>
+          <button
+            onClick={() => {
+              if (this.state.inputValue && this.state.buttonState === "Start") {
+                setStartTime(this.state.inputValue);
+                this.setButtonState(true);
+                this.runTimer();
+              }
+              if (
+                this.state.buttonState === "Stop" &&
+                this.state.inputValue !== ""
+              ) {
+                this.setButtonState(false);
+                this.runTimer();
+                this.clearState();
+                addNewTask(task);
+              }
+            }}
+          >
+            {this.state.buttonState}
+          </button>
+        </InputWrapper>
       </div>
     );
   }

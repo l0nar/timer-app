@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { StyledTaskItem } from "./styledComponents";
 
 class TaskItem extends Component {
   render() {
     const { task, ind } = this.props;
+    console.log(task);
 
     const getZero = (date) => {
       if (date >= 0 && date <= 9) {
@@ -15,11 +17,12 @@ class TaskItem extends Component {
     const seconds = getZero(Math.floor(task.leadTime / 1000) % 60);
 
     return (
-      <div>
+      <StyledTaskItem>
         <span>
           {ind}.{task.name}, заняло времени {minutes}:{seconds}
+          <p>{Date(task.dateStart)}</p>
         </span>
-      </div>
+      </StyledTaskItem>
     );
   }
 }
